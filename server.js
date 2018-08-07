@@ -13,15 +13,17 @@ MongoClient.connect('mongodb://james01:mahan01@ds018238.mlab.com:18238/star-wars
     })
 });
 
-app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-app.use(express.static('public'))
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(express.static('public'));
+// app.use(express.static(__dirname));
+
 
 app.get('/', (req, res) => {
-    db.collection('quotes').find().toArray((err, result) => {
+    db.collection('quotes').find().toArray(function(err, result) {
         if (err) return console.log(err)
-        res.render('index.ejs', {quotes, result})
+        res.render('index.ejs', {quotes: result})
     })
 })
 
