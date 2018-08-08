@@ -1,4 +1,5 @@
 var update = document.getElementById('update')
+var del = document.getElementById('delete');
 
 update.addEventListener('click', function() {
     fetch('quotes', {
@@ -8,5 +9,25 @@ update.addEventListener('click', function() {
             'name': 'Darth Vader',
             'quote': 'I find your lack of faith disturbing'
         })
+    })
+    .then(res => {
+        if (res.ok) return res.json()
+    })
+    .then(data => {
+        console.log(data)
+    })
+})
+
+del.addEventListener('click', function () {
+    fetch('quotes', {
+        method: 'delete', 
+        headers: {
+            'Content-type': 'application/json'
+        }, 
+        body: JSON.stringify ({
+            'name': 'Darth Vader'
+        })
+    }).then(function (response) {
+        window.location.reload()
     })
 })
